@@ -11,9 +11,11 @@ all: proto-bindings
 # Compile .proto files, touch stamp file
 proto-bindings: fetch-proto proto/.downloaded_version
 	@echo -e "$(GREEN)Compiling .proto files...$(NC)"
+	@command -v protoc >/dev/null || (echo "Error: protoc not found in PATH" && exit 1)
 	protoc --proto_path=proto --go_out=. --go-grpc_out=. \
         $(foreach f,$(PROTO_FILES),--go_opt=M$(notdir $(f))=farcaster/ --go-grpc_opt=M$(notdir $(f))=farcaster/) \
         $(PROTO_FILES)
+	@echo "package farcaster" > farcaster/doc.go
 	@touch $@
 
 fetch-proto: SNAPCHAIN_VERSION proto/.downloaded_version
