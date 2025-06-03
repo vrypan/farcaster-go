@@ -5,7 +5,7 @@ Go bindings for farcaster protobufs.
 
 Get the package:
 ```
-go get github.com/vrypan/farcaster-go/farcaster
+go get github.com/vrypan/farcaster-go/farcaster@latest
 ```
 
 ```golang
