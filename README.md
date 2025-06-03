@@ -1,7 +1,12 @@
 # farcaster-go
 Go bindings for farcaster protobufs.
 
-Example usage:
+# Usage
+
+Get the package:
+```
+go get github.com/vrypan/farcaster-go/farcaster
+```
 
 ```golang
 // main.go
