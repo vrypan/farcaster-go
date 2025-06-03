@@ -13,7 +13,7 @@ import (
 )
 
 func main() {
-	hubAddr := "some_server_dot_com:3383" // set your hub hostname here
+	hubAddr := "hub.merv.fun:3383" // set your hub hostname here
 	useSsl := false
 	cred := insecure.NewCredentials()
 	if useSsl {
@@ -36,7 +36,7 @@ func main() {
 	// Fetch the last 10 casts by fid 280
 	var fid uint64 = 280
 	var pageSize uint32 = 10
-	var reverse bool = false
+	var reverse bool = true
 
 	res, err := client.GetCastsByFid(ctx, &farcaster.FidRequest{Fid: fid, Reverse: &reverse, PageSize: &pageSize})
 	if err != nil {
