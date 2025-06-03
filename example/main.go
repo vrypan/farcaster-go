@@ -1,10 +1,3 @@
-# farcaster-go
-Go bindings for farcaster protobufs.
-
-Example usage:
-
-```golang
-// main.go
 package main
 
 import (
@@ -54,6 +47,3 @@ func main() {
 	jsonBytes, err := protojson.Marshal(res)
 	fmt.Printf("%s\n", jsonBytes)
 }
-```
-
-More examples will be added in [examples](./examples)
