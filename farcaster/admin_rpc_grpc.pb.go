@@ -19,16 +19,18 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	AdminService_UploadSnapshot_FullMethodName     = "/AdminService/UploadSnapshot"
-	AdminService_RetryOnchainEvents_FullMethodName = "/AdminService/RetryOnchainEvents"
+	AdminService_SubmitOnChainEvent_FullMethodName  = "/AdminService/SubmitOnChainEvent"
+	AdminService_SubmitUserNameProof_FullMethodName = "/AdminService/SubmitUserNameProof"
+	AdminService_UploadSnapshot_FullMethodName      = "/AdminService/UploadSnapshot"
+	AdminService_RetryOnchainEvents_FullMethodName  = "/AdminService/RetryOnchainEvents"
 )
 
 // AdminServiceClient is the client API for AdminService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type AdminServiceClient interface {
-	// rpc SubmitOnChainEvent(OnChainEvent) returns (OnChainEvent);
-	// rpc SubmitUserNameProof(UserNameProof) returns (UserNameProof);
+	SubmitOnChainEvent(ctx context.Context, in *OnChainEvent, opts ...grpc.CallOption) (*OnChainEvent, error)
+	SubmitUserNameProof(ctx context.Context, in *UserNameProof, opts ...grpc.CallOption) (*UserNameProof, error)
 	UploadSnapshot(ctx context.Context, in *UploadSnapshotRequest, opts ...grpc.CallOption) (*Empty, error)
 	RetryOnchainEvents(ctx context.Context, in *RetryOnchainEventsRequest, opts ...grpc.CallOption) (*Empty, error)
 }
@@ -39,6 +41,26 @@ type adminServiceClient struct {
 
 func NewAdminServiceClient(cc grpc.ClientConnInterface) AdminServiceClient {
 	return &adminServiceClient{cc}
+}
+
+func (c *adminServiceClient) SubmitOnChainEvent(ctx context.Context, in *OnChainEvent, opts ...grpc.CallOption) (*OnChainEvent, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(OnChainEvent)
+	err := c.cc.Invoke(ctx, AdminService_SubmitOnChainEvent_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *adminServiceClient) SubmitUserNameProof(ctx context.Context, in *UserNameProof, opts ...grpc.CallOption) (*UserNameProof, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UserNameProof)
+	err := c.cc.Invoke(ctx, AdminService_SubmitUserNameProof_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
 }
 
 func (c *adminServiceClient) UploadSnapshot(ctx context.Context, in *UploadSnapshotRequest, opts ...grpc.CallOption) (*Empty, error) {
@@ -65,8 +87,8 @@ func (c *adminServiceClient) RetryOnchainEvents(ctx context.Context, in *RetryOn
 // All implementations must embed UnimplementedAdminServiceServer
 // for forward compatibility.
 type AdminServiceServer interface {
-	// rpc SubmitOnChainEvent(OnChainEvent) returns (OnChainEvent);
-	// rpc SubmitUserNameProof(UserNameProof) returns (UserNameProof);
+	SubmitOnChainEvent(context.Context, *OnChainEvent) (*OnChainEvent, error)
+	SubmitUserNameProof(context.Context, *UserNameProof) (*UserNameProof, error)
 	UploadSnapshot(context.Context, *UploadSnapshotRequest) (*Empty, error)
 	RetryOnchainEvents(context.Context, *RetryOnchainEventsRequest) (*Empty, error)
 	mustEmbedUnimplementedAdminServiceServer()
@@ -79,6 +101,12 @@ type AdminServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedAdminServiceServer struct{}
 
+func (UnimplementedAdminServiceServer) SubmitOnChainEvent(context.Context, *OnChainEvent) (*OnChainEvent, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SubmitOnChainEvent not implemented")
+}
+func (UnimplementedAdminServiceServer) SubmitUserNameProof(context.Context, *UserNameProof) (*UserNameProof, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SubmitUserNameProof not implemented")
+}
 func (UnimplementedAdminServiceServer) UploadSnapshot(context.Context, *UploadSnapshotRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UploadSnapshot not implemented")
 }
@@ -104,6 +132,42 @@ func RegisterAdminServiceServer(s grpc.ServiceRegistrar, srv AdminServiceServer)
 		t.testEmbeddedByValue()
 	}
 	s.RegisterService(&AdminService_ServiceDesc, srv)
+}
+
+func _AdminService_SubmitOnChainEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OnChainEvent)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServiceServer).SubmitOnChainEvent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AdminService_SubmitOnChainEvent_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServiceServer).SubmitOnChainEvent(ctx, req.(*OnChainEvent))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _AdminService_SubmitUserNameProof_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UserNameProof)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServiceServer).SubmitUserNameProof(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AdminService_SubmitUserNameProof_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServiceServer).SubmitUserNameProof(ctx, req.(*UserNameProof))
+	}
+	return interceptor(ctx, in, info, handler)
 }
 
 func _AdminService_UploadSnapshot_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
@@ -149,6 +213,14 @@ var AdminService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "AdminService",
 	HandlerType: (*AdminServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "SubmitOnChainEvent",
+			Handler:    _AdminService_SubmitOnChainEvent_Handler,
+		},
+		{
+			MethodName: "SubmitUserNameProof",
+			Handler:    _AdminService_SubmitUserNameProof_Handler,
+		},
 		{
 			MethodName: "UploadSnapshot",
 			Handler:    _AdminService_UploadSnapshot_Handler,
