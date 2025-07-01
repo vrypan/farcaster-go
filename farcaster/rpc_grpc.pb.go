@@ -48,6 +48,7 @@ const (
 	HubService_GetIdRegistryOnChainEvent_FullMethodName          = "/HubService/GetIdRegistryOnChainEvent"
 	HubService_GetIdRegistryOnChainEventByAddress_FullMethodName = "/HubService/GetIdRegistryOnChainEventByAddress"
 	HubService_GetCurrentStorageLimitsByFid_FullMethodName       = "/HubService/GetCurrentStorageLimitsByFid"
+	HubService_GetFidAddressType_FullMethodName                  = "/HubService/GetFidAddressType"
 	HubService_GetLink_FullMethodName                            = "/HubService/GetLink"
 	HubService_GetLinksByFid_FullMethodName                      = "/HubService/GetLinksByFid"
 	HubService_GetLinksByTarget_FullMethodName                   = "/HubService/GetLinksByTarget"
@@ -103,6 +104,7 @@ type HubServiceClient interface {
 	GetIdRegistryOnChainEvent(ctx context.Context, in *FidRequest, opts ...grpc.CallOption) (*OnChainEvent, error)
 	GetIdRegistryOnChainEventByAddress(ctx context.Context, in *IdRegistryEventByAddressRequest, opts ...grpc.CallOption) (*OnChainEvent, error)
 	GetCurrentStorageLimitsByFid(ctx context.Context, in *FidRequest, opts ...grpc.CallOption) (*StorageLimitsResponse, error)
+	GetFidAddressType(ctx context.Context, in *FidAddressTypeRequest, opts ...grpc.CallOption) (*FidAddressTypeResponse, error)
 	// Links
 	GetLink(ctx context.Context, in *LinkRequest, opts ...grpc.CallOption) (*Message, error)
 	GetLinksByFid(ctx context.Context, in *LinksByFidRequest, opts ...grpc.CallOption) (*MessagesResponse, error)
@@ -433,6 +435,16 @@ func (c *hubServiceClient) GetCurrentStorageLimitsByFid(ctx context.Context, in 
 	return out, nil
 }
 
+func (c *hubServiceClient) GetFidAddressType(ctx context.Context, in *FidAddressTypeRequest, opts ...grpc.CallOption) (*FidAddressTypeResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(FidAddressTypeResponse)
+	err := c.cc.Invoke(ctx, HubService_GetFidAddressType_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *hubServiceClient) GetLink(ctx context.Context, in *LinkRequest, opts ...grpc.CallOption) (*Message, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(Message)
@@ -576,6 +588,7 @@ type HubServiceServer interface {
 	GetIdRegistryOnChainEvent(context.Context, *FidRequest) (*OnChainEvent, error)
 	GetIdRegistryOnChainEventByAddress(context.Context, *IdRegistryEventByAddressRequest) (*OnChainEvent, error)
 	GetCurrentStorageLimitsByFid(context.Context, *FidRequest) (*StorageLimitsResponse, error)
+	GetFidAddressType(context.Context, *FidAddressTypeRequest) (*FidAddressTypeResponse, error)
 	// Links
 	GetLink(context.Context, *LinkRequest) (*Message, error)
 	GetLinksByFid(context.Context, *LinksByFidRequest) (*MessagesResponse, error)
@@ -684,6 +697,9 @@ func (UnimplementedHubServiceServer) GetIdRegistryOnChainEventByAddress(context.
 }
 func (UnimplementedHubServiceServer) GetCurrentStorageLimitsByFid(context.Context, *FidRequest) (*StorageLimitsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetCurrentStorageLimitsByFid not implemented")
+}
+func (UnimplementedHubServiceServer) GetFidAddressType(context.Context, *FidAddressTypeRequest) (*FidAddressTypeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFidAddressType not implemented")
 }
 func (UnimplementedHubServiceServer) GetLink(context.Context, *LinkRequest) (*Message, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetLink not implemented")
@@ -1244,6 +1260,24 @@ func _HubService_GetCurrentStorageLimitsByFid_Handler(srv interface{}, ctx conte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _HubService_GetFidAddressType_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(FidAddressTypeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(HubServiceServer).GetFidAddressType(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: HubService_GetFidAddressType_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(HubServiceServer).GetFidAddressType(ctx, req.(*FidAddressTypeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _HubService_GetLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(LinkRequest)
 	if err := dec(in); err != nil {
@@ -1538,6 +1572,10 @@ var HubService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetCurrentStorageLimitsByFid",
 			Handler:    _HubService_GetCurrentStorageLimitsByFid_Handler,
+		},
+		{
+			MethodName: "GetFidAddressType",
+			Handler:    _HubService_GetFidAddressType_Handler,
 		},
 		{
 			MethodName: "GetLink",
