@@ -89,6 +89,50 @@ func (x *DbTrieNode) GetChildHashes() map[uint32][]byte {
 	return nil
 }
 
+type DbMerkleTrieMetadata struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	OutdatedHash  bool                   `protobuf:"varint,1,opt,name=outdatedHash,proto3" json:"outdatedHash,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DbMerkleTrieMetadata) Reset() {
+	*x = DbMerkleTrieMetadata{}
+	mi := &file_sync_trie_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DbMerkleTrieMetadata) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DbMerkleTrieMetadata) ProtoMessage() {}
+
+func (x *DbMerkleTrieMetadata) ProtoReflect() protoreflect.Message {
+	mi := &file_sync_trie_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DbMerkleTrieMetadata.ProtoReflect.Descriptor instead.
+func (*DbMerkleTrieMetadata) Descriptor() ([]byte, []int) {
+	return file_sync_trie_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *DbMerkleTrieMetadata) GetOutdatedHash() bool {
+	if x != nil {
+		return x.OutdatedHash
+	}
+	return false
+}
+
 var File_sync_trie_proto protoreflect.FileDescriptor
 
 var file_sync_trie_proto_rawDesc = string([]byte{
@@ -106,7 +150,11 @@ var file_sync_trie_proto_rawDesc = string([]byte{
 	0x64, 0x48, 0x61, 0x73, 0x68, 0x65, 0x73, 0x45, 0x6e, 0x74, 0x72, 0x79, 0x12, 0x10, 0x0a, 0x03,
 	0x6b, 0x65, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0d, 0x52, 0x03, 0x6b, 0x65, 0x79, 0x12, 0x14,
 	0x0a, 0x05, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0c, 0x52, 0x05, 0x76,
-	0x61, 0x6c, 0x75, 0x65, 0x3a, 0x02, 0x38, 0x01, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x61, 0x6c, 0x75, 0x65, 0x3a, 0x02, 0x38, 0x01, 0x22, 0x3a, 0x0a, 0x14, 0x44, 0x62, 0x4d, 0x65,
+	0x72, 0x6b, 0x6c, 0x65, 0x54, 0x72, 0x69, 0x65, 0x4d, 0x65, 0x74, 0x61, 0x64, 0x61, 0x74, 0x61,
+	0x12, 0x22, 0x0a, 0x0c, 0x6f, 0x75, 0x74, 0x64, 0x61, 0x74, 0x65, 0x64, 0x48, 0x61, 0x73, 0x68,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x08, 0x52, 0x0c, 0x6f, 0x75, 0x74, 0x64, 0x61, 0x74, 0x65, 0x64,
+	0x48, 0x61, 0x73, 0x68, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 })
 
 var (
@@ -121,13 +169,14 @@ func file_sync_trie_proto_rawDescGZIP() []byte {
 	return file_sync_trie_proto_rawDescData
 }
 
-var file_sync_trie_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_sync_trie_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_sync_trie_proto_goTypes = []any{
-	(*DbTrieNode)(nil), // 0: DbTrieNode
-	nil,                // 1: DbTrieNode.ChildHashesEntry
+	(*DbTrieNode)(nil),           // 0: DbTrieNode
+	(*DbMerkleTrieMetadata)(nil), // 1: DbMerkleTrieMetadata
+	nil,                          // 2: DbTrieNode.ChildHashesEntry
 }
 var file_sync_trie_proto_depIdxs = []int32{
-	1, // 0: DbTrieNode.childHashes:type_name -> DbTrieNode.ChildHashesEntry
+	2, // 0: DbTrieNode.childHashes:type_name -> DbTrieNode.ChildHashesEntry
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name
@@ -146,7 +195,7 @@ func file_sync_trie_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_sync_trie_proto_rawDesc), len(file_sync_trie_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   3,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

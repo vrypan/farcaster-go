@@ -31,6 +31,7 @@ const (
 	StoreType_STORE_TYPE_USER_DATA       StoreType = 4
 	StoreType_STORE_TYPE_VERIFICATIONS   StoreType = 5
 	StoreType_STORE_TYPE_USERNAME_PROOFS StoreType = 6
+	StoreType_STORE_TYPE_STORAGE_LENDS   StoreType = 7
 )
 
 // Enum value maps for StoreType.
@@ -43,6 +44,7 @@ var (
 		4: "STORE_TYPE_USER_DATA",
 		5: "STORE_TYPE_VERIFICATIONS",
 		6: "STORE_TYPE_USERNAME_PROOFS",
+		7: "STORE_TYPE_STORAGE_LENDS",
 	}
 	StoreType_value = map[string]int32{
 		"STORE_TYPE_NONE":            0,
@@ -52,6 +54,7 @@ var (
 		"STORE_TYPE_USER_DATA":       4,
 		"STORE_TYPE_VERIFICATIONS":   5,
 		"STORE_TYPE_USERNAME_PROOFS": 6,
+		"STORE_TYPE_STORAGE_LENDS":   7,
 	}
 )
 
@@ -80,55 +83,6 @@ func (x StoreType) Number() protoreflect.EnumNumber {
 // Deprecated: Use StoreType.Descriptor instead.
 func (StoreType) EnumDescriptor() ([]byte, []int) {
 	return file_request_response_proto_rawDescGZIP(), []int{0}
-}
-
-type StorageUnitType int32
-
-const (
-	StorageUnitType_UNIT_TYPE_LEGACY StorageUnitType = 0
-	StorageUnitType_UNIT_TYPE_2024   StorageUnitType = 1
-	StorageUnitType_UNIT_TYPE_2025   StorageUnitType = 2
-)
-
-// Enum value maps for StorageUnitType.
-var (
-	StorageUnitType_name = map[int32]string{
-		0: "UNIT_TYPE_LEGACY",
-		1: "UNIT_TYPE_2024",
-		2: "UNIT_TYPE_2025",
-	}
-	StorageUnitType_value = map[string]int32{
-		"UNIT_TYPE_LEGACY": 0,
-		"UNIT_TYPE_2024":   1,
-		"UNIT_TYPE_2025":   2,
-	}
-)
-
-func (x StorageUnitType) Enum() *StorageUnitType {
-	p := new(StorageUnitType)
-	*p = x
-	return p
-}
-
-func (x StorageUnitType) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (StorageUnitType) Descriptor() protoreflect.EnumDescriptor {
-	return file_request_response_proto_enumTypes[1].Descriptor()
-}
-
-func (StorageUnitType) Type() protoreflect.EnumType {
-	return &file_request_response_proto_enumTypes[1]
-}
-
-func (x StorageUnitType) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use StorageUnitType.Descriptor instead.
-func (StorageUnitType) EnumDescriptor() ([]byte, []int) {
-	return file_request_response_proto_rawDescGZIP(), []int{1}
 }
 
 type BlocksRequest struct {
@@ -3476,7 +3430,7 @@ var file_request_response_proto_rawDesc = string([]byte{
 	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x2c, 0x0a, 0x08, 0x63, 0x6f, 0x6e, 0x74, 0x61, 0x63, 0x74,
 	0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x43, 0x6f, 0x6e, 0x74, 0x61, 0x63,
 	0x74, 0x49, 0x6e, 0x66, 0x6f, 0x42, 0x6f, 0x64, 0x79, 0x52, 0x08, 0x63, 0x6f, 0x6e, 0x74, 0x61,
-	0x63, 0x74, 0x73, 0x2a, 0xbe, 0x01, 0x0a, 0x09, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x54, 0x79, 0x70,
+	0x63, 0x74, 0x73, 0x2a, 0xdc, 0x01, 0x0a, 0x09, 0x53, 0x74, 0x6f, 0x72, 0x65, 0x54, 0x79, 0x70,
 	0x65, 0x12, 0x13, 0x0a, 0x0f, 0x53, 0x54, 0x4f, 0x52, 0x45, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f,
 	0x4e, 0x4f, 0x4e, 0x45, 0x10, 0x00, 0x12, 0x14, 0x0a, 0x10, 0x53, 0x54, 0x4f, 0x52, 0x45, 0x5f,
 	0x54, 0x59, 0x50, 0x45, 0x5f, 0x43, 0x41, 0x53, 0x54, 0x53, 0x10, 0x01, 0x12, 0x14, 0x0a, 0x10,
@@ -3488,12 +3442,9 @@ var file_request_response_proto_rawDesc = string([]byte{
 	0x54, 0x59, 0x50, 0x45, 0x5f, 0x56, 0x45, 0x52, 0x49, 0x46, 0x49, 0x43, 0x41, 0x54, 0x49, 0x4f,
 	0x4e, 0x53, 0x10, 0x05, 0x12, 0x1e, 0x0a, 0x1a, 0x53, 0x54, 0x4f, 0x52, 0x45, 0x5f, 0x54, 0x59,
 	0x50, 0x45, 0x5f, 0x55, 0x53, 0x45, 0x52, 0x4e, 0x41, 0x4d, 0x45, 0x5f, 0x50, 0x52, 0x4f, 0x4f,
-	0x46, 0x53, 0x10, 0x06, 0x2a, 0x4f, 0x0a, 0x0f, 0x53, 0x74, 0x6f, 0x72, 0x61, 0x67, 0x65, 0x55,
-	0x6e, 0x69, 0x74, 0x54, 0x79, 0x70, 0x65, 0x12, 0x14, 0x0a, 0x10, 0x55, 0x4e, 0x49, 0x54, 0x5f,
-	0x54, 0x59, 0x50, 0x45, 0x5f, 0x4c, 0x45, 0x47, 0x41, 0x43, 0x59, 0x10, 0x00, 0x12, 0x12, 0x0a,
-	0x0e, 0x55, 0x4e, 0x49, 0x54, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f, 0x32, 0x30, 0x32, 0x34, 0x10,
-	0x01, 0x12, 0x12, 0x0a, 0x0e, 0x55, 0x4e, 0x49, 0x54, 0x5f, 0x54, 0x59, 0x50, 0x45, 0x5f, 0x32,
-	0x30, 0x32, 0x35, 0x10, 0x02, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x46, 0x53, 0x10, 0x06, 0x12, 0x1c, 0x0a, 0x18, 0x53, 0x54, 0x4f, 0x52, 0x45, 0x5f, 0x54, 0x59,
+	0x50, 0x45, 0x5f, 0x53, 0x54, 0x4f, 0x52, 0x41, 0x47, 0x45, 0x5f, 0x4c, 0x45, 0x4e, 0x44, 0x53,
+	0x10, 0x07, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 })
 
 var (
@@ -3508,98 +3459,98 @@ func file_request_response_proto_rawDescGZIP() []byte {
 	return file_request_response_proto_rawDescData
 }
 
-var file_request_response_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
+var file_request_response_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_request_response_proto_msgTypes = make([]protoimpl.MessageInfo, 46)
 var file_request_response_proto_goTypes = []any{
 	(StoreType)(0),                          // 0: StoreType
-	(StorageUnitType)(0),                    // 1: StorageUnitType
-	(*BlocksRequest)(nil),                   // 2: BlocksRequest
-	(*ShardChunksRequest)(nil),              // 3: ShardChunksRequest
-	(*ShardChunksResponse)(nil),             // 4: ShardChunksResponse
-	(*SubscribeRequest)(nil),                // 5: SubscribeRequest
-	(*DbStats)(nil),                         // 6: DbStats
-	(*ShardInfo)(nil),                       // 7: ShardInfo
-	(*GetInfoRequest)(nil),                  // 8: GetInfoRequest
-	(*GetInfoResponse)(nil),                 // 9: GetInfoResponse
-	(*EventRequest)(nil),                    // 10: EventRequest
-	(*FidRequest)(nil),                      // 11: FidRequest
-	(*FidTimestampRequest)(nil),             // 12: FidTimestampRequest
-	(*FidsRequest)(nil),                     // 13: FidsRequest
-	(*FidsResponse)(nil),                    // 14: FidsResponse
-	(*MessagesResponse)(nil),                // 15: MessagesResponse
-	(*CastsByParentRequest)(nil),            // 16: CastsByParentRequest
-	(*ReactionRequest)(nil),                 // 17: ReactionRequest
-	(*ReactionsByFidRequest)(nil),           // 18: ReactionsByFidRequest
-	(*ReactionsByTargetRequest)(nil),        // 19: ReactionsByTargetRequest
-	(*UserDataRequest)(nil),                 // 20: UserDataRequest
-	(*OnChainEventRequest)(nil),             // 21: OnChainEventRequest
-	(*OnChainEventResponse)(nil),            // 22: OnChainEventResponse
-	(*TierDetails)(nil),                     // 23: TierDetails
-	(*StorageLimitsResponse)(nil),           // 24: StorageLimitsResponse
-	(*StorageUnitDetails)(nil),              // 25: StorageUnitDetails
-	(*StorageLimit)(nil),                    // 26: StorageLimit
-	(*UsernameProofRequest)(nil),            // 27: UsernameProofRequest
-	(*UsernameProofsResponse)(nil),          // 28: UsernameProofsResponse
-	(*ValidationResponse)(nil),              // 29: ValidationResponse
-	(*VerificationRequest)(nil),             // 30: VerificationRequest
-	(*SignerRequest)(nil),                   // 31: SignerRequest
-	(*LinkRequest)(nil),                     // 32: LinkRequest
-	(*LinksByFidRequest)(nil),               // 33: LinksByFidRequest
-	(*LinksByTargetRequest)(nil),            // 34: LinksByTargetRequest
-	(*IdRegistryEventByAddressRequest)(nil), // 35: IdRegistryEventByAddressRequest
-	(*SubmitBulkMessagesRequest)(nil),       // 36: SubmitBulkMessagesRequest
-	(*MessageError)(nil),                    // 37: MessageError
-	(*BulkMessageResponse)(nil),             // 38: BulkMessageResponse
-	(*SubmitBulkMessagesResponse)(nil),      // 39: SubmitBulkMessagesResponse
-	(*TrieNodeMetadataRequest)(nil),         // 40: TrieNodeMetadataRequest
-	(*TrieNodeMetadataResponse)(nil),        // 41: TrieNodeMetadataResponse
-	(*EventsRequest)(nil),                   // 42: EventsRequest
-	(*EventsResponse)(nil),                  // 43: EventsResponse
-	(*FidAddressTypeRequest)(nil),           // 44: FidAddressTypeRequest
-	(*FidAddressTypeResponse)(nil),          // 45: FidAddressTypeResponse
-	(*GetConnectedPeersRequest)(nil),        // 46: GetConnectedPeersRequest
-	(*GetConnectedPeersResponse)(nil),       // 47: GetConnectedPeersResponse
-	(*ShardChunk)(nil),                      // 48: ShardChunk
-	(HubEventType)(0),                       // 49: HubEventType
-	(*Message)(nil),                         // 50: Message
-	(*CastId)(nil),                          // 51: CastId
-	(ReactionType)(0),                       // 52: ReactionType
-	(UserDataType)(0),                       // 53: UserDataType
-	(OnChainEventType)(0),                   // 54: OnChainEventType
-	(*OnChainEvent)(nil),                    // 55: OnChainEvent
-	(TierType)(0),                           // 56: TierType
+	(*BlocksRequest)(nil),                   // 1: BlocksRequest
+	(*ShardChunksRequest)(nil),              // 2: ShardChunksRequest
+	(*ShardChunksResponse)(nil),             // 3: ShardChunksResponse
+	(*SubscribeRequest)(nil),                // 4: SubscribeRequest
+	(*DbStats)(nil),                         // 5: DbStats
+	(*ShardInfo)(nil),                       // 6: ShardInfo
+	(*GetInfoRequest)(nil),                  // 7: GetInfoRequest
+	(*GetInfoResponse)(nil),                 // 8: GetInfoResponse
+	(*EventRequest)(nil),                    // 9: EventRequest
+	(*FidRequest)(nil),                      // 10: FidRequest
+	(*FidTimestampRequest)(nil),             // 11: FidTimestampRequest
+	(*FidsRequest)(nil),                     // 12: FidsRequest
+	(*FidsResponse)(nil),                    // 13: FidsResponse
+	(*MessagesResponse)(nil),                // 14: MessagesResponse
+	(*CastsByParentRequest)(nil),            // 15: CastsByParentRequest
+	(*ReactionRequest)(nil),                 // 16: ReactionRequest
+	(*ReactionsByFidRequest)(nil),           // 17: ReactionsByFidRequest
+	(*ReactionsByTargetRequest)(nil),        // 18: ReactionsByTargetRequest
+	(*UserDataRequest)(nil),                 // 19: UserDataRequest
+	(*OnChainEventRequest)(nil),             // 20: OnChainEventRequest
+	(*OnChainEventResponse)(nil),            // 21: OnChainEventResponse
+	(*TierDetails)(nil),                     // 22: TierDetails
+	(*StorageLimitsResponse)(nil),           // 23: StorageLimitsResponse
+	(*StorageUnitDetails)(nil),              // 24: StorageUnitDetails
+	(*StorageLimit)(nil),                    // 25: StorageLimit
+	(*UsernameProofRequest)(nil),            // 26: UsernameProofRequest
+	(*UsernameProofsResponse)(nil),          // 27: UsernameProofsResponse
+	(*ValidationResponse)(nil),              // 28: ValidationResponse
+	(*VerificationRequest)(nil),             // 29: VerificationRequest
+	(*SignerRequest)(nil),                   // 30: SignerRequest
+	(*LinkRequest)(nil),                     // 31: LinkRequest
+	(*LinksByFidRequest)(nil),               // 32: LinksByFidRequest
+	(*LinksByTargetRequest)(nil),            // 33: LinksByTargetRequest
+	(*IdRegistryEventByAddressRequest)(nil), // 34: IdRegistryEventByAddressRequest
+	(*SubmitBulkMessagesRequest)(nil),       // 35: SubmitBulkMessagesRequest
+	(*MessageError)(nil),                    // 36: MessageError
+	(*BulkMessageResponse)(nil),             // 37: BulkMessageResponse
+	(*SubmitBulkMessagesResponse)(nil),      // 38: SubmitBulkMessagesResponse
+	(*TrieNodeMetadataRequest)(nil),         // 39: TrieNodeMetadataRequest
+	(*TrieNodeMetadataResponse)(nil),        // 40: TrieNodeMetadataResponse
+	(*EventsRequest)(nil),                   // 41: EventsRequest
+	(*EventsResponse)(nil),                  // 42: EventsResponse
+	(*FidAddressTypeRequest)(nil),           // 43: FidAddressTypeRequest
+	(*FidAddressTypeResponse)(nil),          // 44: FidAddressTypeResponse
+	(*GetConnectedPeersRequest)(nil),        // 45: GetConnectedPeersRequest
+	(*GetConnectedPeersResponse)(nil),       // 46: GetConnectedPeersResponse
+	(*ShardChunk)(nil),                      // 47: ShardChunk
+	(HubEventType)(0),                       // 48: HubEventType
+	(*Message)(nil),                         // 49: Message
+	(*CastId)(nil),                          // 50: CastId
+	(ReactionType)(0),                       // 51: ReactionType
+	(UserDataType)(0),                       // 52: UserDataType
+	(OnChainEventType)(0),                   // 53: OnChainEventType
+	(*OnChainEvent)(nil),                    // 54: OnChainEvent
+	(TierType)(0),                           // 55: TierType
+	(StorageUnitType)(0),                    // 56: StorageUnitType
 	(*UserNameProof)(nil),                   // 57: UserNameProof
 	(*HubEvent)(nil),                        // 58: HubEvent
 	(*ContactInfoBody)(nil),                 // 59: ContactInfoBody
 }
 var file_request_response_proto_depIdxs = []int32{
-	48, // 0: ShardChunksResponse.shard_chunks:type_name -> ShardChunk
-	49, // 1: SubscribeRequest.event_types:type_name -> HubEventType
-	6,  // 2: GetInfoResponse.db_stats:type_name -> DbStats
-	7,  // 3: GetInfoResponse.shard_infos:type_name -> ShardInfo
-	50, // 4: MessagesResponse.messages:type_name -> Message
-	51, // 5: CastsByParentRequest.parent_cast_id:type_name -> CastId
-	52, // 6: ReactionRequest.reaction_type:type_name -> ReactionType
-	51, // 7: ReactionRequest.target_cast_id:type_name -> CastId
-	52, // 8: ReactionsByFidRequest.reaction_type:type_name -> ReactionType
-	51, // 9: ReactionsByTargetRequest.target_cast_id:type_name -> CastId
-	52, // 10: ReactionsByTargetRequest.reaction_type:type_name -> ReactionType
-	53, // 11: UserDataRequest.user_data_type:type_name -> UserDataType
-	54, // 12: OnChainEventRequest.event_type:type_name -> OnChainEventType
-	55, // 13: OnChainEventResponse.events:type_name -> OnChainEvent
-	56, // 14: TierDetails.tier_type:type_name -> TierType
-	26, // 15: StorageLimitsResponse.limits:type_name -> StorageLimit
-	25, // 16: StorageLimitsResponse.unit_details:type_name -> StorageUnitDetails
-	23, // 17: StorageLimitsResponse.tier_subscriptions:type_name -> TierDetails
-	1,  // 18: StorageUnitDetails.unit_type:type_name -> StorageUnitType
+	47, // 0: ShardChunksResponse.shard_chunks:type_name -> ShardChunk
+	48, // 1: SubscribeRequest.event_types:type_name -> HubEventType
+	5,  // 2: GetInfoResponse.db_stats:type_name -> DbStats
+	6,  // 3: GetInfoResponse.shard_infos:type_name -> ShardInfo
+	49, // 4: MessagesResponse.messages:type_name -> Message
+	50, // 5: CastsByParentRequest.parent_cast_id:type_name -> CastId
+	51, // 6: ReactionRequest.reaction_type:type_name -> ReactionType
+	50, // 7: ReactionRequest.target_cast_id:type_name -> CastId
+	51, // 8: ReactionsByFidRequest.reaction_type:type_name -> ReactionType
+	50, // 9: ReactionsByTargetRequest.target_cast_id:type_name -> CastId
+	51, // 10: ReactionsByTargetRequest.reaction_type:type_name -> ReactionType
+	52, // 11: UserDataRequest.user_data_type:type_name -> UserDataType
+	53, // 12: OnChainEventRequest.event_type:type_name -> OnChainEventType
+	54, // 13: OnChainEventResponse.events:type_name -> OnChainEvent
+	55, // 14: TierDetails.tier_type:type_name -> TierType
+	25, // 15: StorageLimitsResponse.limits:type_name -> StorageLimit
+	24, // 16: StorageLimitsResponse.unit_details:type_name -> StorageUnitDetails
+	22, // 17: StorageLimitsResponse.tier_subscriptions:type_name -> TierDetails
+	56, // 18: StorageUnitDetails.unit_type:type_name -> StorageUnitType
 	0,  // 19: StorageLimit.store_type:type_name -> StoreType
 	57, // 20: UsernameProofsResponse.proofs:type_name -> UserNameProof
-	50, // 21: ValidationResponse.message:type_name -> Message
-	50, // 22: SubmitBulkMessagesRequest.messages:type_name -> Message
-	50, // 23: BulkMessageResponse.message:type_name -> Message
-	37, // 24: BulkMessageResponse.message_error:type_name -> MessageError
-	38, // 25: SubmitBulkMessagesResponse.messages:type_name -> BulkMessageResponse
-	41, // 26: TrieNodeMetadataResponse.children:type_name -> TrieNodeMetadataResponse
+	49, // 21: ValidationResponse.message:type_name -> Message
+	49, // 22: SubmitBulkMessagesRequest.messages:type_name -> Message
+	49, // 23: BulkMessageResponse.message:type_name -> Message
+	36, // 24: BulkMessageResponse.message_error:type_name -> MessageError
+	37, // 25: SubmitBulkMessagesResponse.messages:type_name -> BulkMessageResponse
+	40, // 26: TrieNodeMetadataResponse.children:type_name -> TrieNodeMetadataResponse
 	58, // 27: EventsResponse.events:type_name -> HubEvent
 	59, // 28: GetConnectedPeersResponse.contacts:type_name -> ContactInfoBody
 	29, // [29:29] is the sub-list for method output_type
@@ -3661,7 +3612,7 @@ func file_request_response_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_request_response_proto_rawDesc), len(file_request_response_proto_rawDesc)),
-			NumEnums:      2,
+			NumEnums:      1,
 			NumMessages:   46,
 			NumExtensions: 0,
 			NumServices:   0,

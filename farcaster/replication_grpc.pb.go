@@ -19,9 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ReplicationService_GetShardSnapshotMetadata_FullMethodName        = "/ReplicationService/GetShardSnapshotMetadata"
-	ReplicationService_GetShardTransactions_FullMethodName            = "/ReplicationService/GetShardTransactions"
-	ReplicationService_GetReplicationTransactionsByFid_FullMethodName = "/ReplicationService/GetReplicationTransactionsByFid"
+	ReplicationService_GetShardSnapshotMetadata_FullMethodName = "/ReplicationService/GetShardSnapshotMetadata"
+	ReplicationService_GetShardTransactions_FullMethodName     = "/ReplicationService/GetShardTransactions"
 )
 
 // ReplicationServiceClient is the client API for ReplicationService service.
@@ -30,9 +29,6 @@ const (
 type ReplicationServiceClient interface {
 	GetShardSnapshotMetadata(ctx context.Context, in *GetShardSnapshotMetadataRequest, opts ...grpc.CallOption) (*GetShardSnapshotMetadataResponse, error)
 	GetShardTransactions(ctx context.Context, in *GetShardTransactionsRequest, opts ...grpc.CallOption) (*GetShardTransactionsResponse, error)
-	// IMPORTANT: this is a temporary endpoint for debugging purposes only. It will eventually be
-	// removed, and SHOULD NOT be used for production purposes.
-	GetReplicationTransactionsByFid(ctx context.Context, in *GetReplicationTransactionsByFidRequest, opts ...grpc.CallOption) (*GetReplicationTransactionsByFidResponse, error)
 }
 
 type replicationServiceClient struct {
@@ -63,25 +59,12 @@ func (c *replicationServiceClient) GetShardTransactions(ctx context.Context, in 
 	return out, nil
 }
 
-func (c *replicationServiceClient) GetReplicationTransactionsByFid(ctx context.Context, in *GetReplicationTransactionsByFidRequest, opts ...grpc.CallOption) (*GetReplicationTransactionsByFidResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetReplicationTransactionsByFidResponse)
-	err := c.cc.Invoke(ctx, ReplicationService_GetReplicationTransactionsByFid_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // ReplicationServiceServer is the server API for ReplicationService service.
 // All implementations must embed UnimplementedReplicationServiceServer
 // for forward compatibility.
 type ReplicationServiceServer interface {
 	GetShardSnapshotMetadata(context.Context, *GetShardSnapshotMetadataRequest) (*GetShardSnapshotMetadataResponse, error)
 	GetShardTransactions(context.Context, *GetShardTransactionsRequest) (*GetShardTransactionsResponse, error)
-	// IMPORTANT: this is a temporary endpoint for debugging purposes only. It will eventually be
-	// removed, and SHOULD NOT be used for production purposes.
-	GetReplicationTransactionsByFid(context.Context, *GetReplicationTransactionsByFidRequest) (*GetReplicationTransactionsByFidResponse, error)
 	mustEmbedUnimplementedReplicationServiceServer()
 }
 
@@ -97,9 +80,6 @@ func (UnimplementedReplicationServiceServer) GetShardSnapshotMetadata(context.Co
 }
 func (UnimplementedReplicationServiceServer) GetShardTransactions(context.Context, *GetShardTransactionsRequest) (*GetShardTransactionsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetShardTransactions not implemented")
-}
-func (UnimplementedReplicationServiceServer) GetReplicationTransactionsByFid(context.Context, *GetReplicationTransactionsByFidRequest) (*GetReplicationTransactionsByFidResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetReplicationTransactionsByFid not implemented")
 }
 func (UnimplementedReplicationServiceServer) mustEmbedUnimplementedReplicationServiceServer() {}
 func (UnimplementedReplicationServiceServer) testEmbeddedByValue()                            {}
@@ -158,24 +138,6 @@ func _ReplicationService_GetShardTransactions_Handler(srv interface{}, ctx conte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ReplicationService_GetReplicationTransactionsByFid_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetReplicationTransactionsByFidRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ReplicationServiceServer).GetReplicationTransactionsByFid(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ReplicationService_GetReplicationTransactionsByFid_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ReplicationServiceServer).GetReplicationTransactionsByFid(ctx, req.(*GetReplicationTransactionsByFidRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // ReplicationService_ServiceDesc is the grpc.ServiceDesc for ReplicationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -190,10 +152,6 @@ var ReplicationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetShardTransactions",
 			Handler:    _ReplicationService_GetShardTransactions_Handler,
-		},
-		{
-			MethodName: "GetReplicationTransactionsByFid",
-			Handler:    _ReplicationService_GetReplicationTransactionsByFid_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
