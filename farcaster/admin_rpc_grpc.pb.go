@@ -19,11 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	AdminService_SubmitOnChainEvent_FullMethodName  = "/AdminService/SubmitOnChainEvent"
-	AdminService_SubmitUserNameProof_FullMethodName = "/AdminService/SubmitUserNameProof"
-	AdminService_UploadSnapshot_FullMethodName      = "/AdminService/UploadSnapshot"
-	AdminService_RetryOnchainEvents_FullMethodName  = "/AdminService/RetryOnchainEvents"
-	AdminService_RetryFnameEvents_FullMethodName    = "/AdminService/RetryFnameEvents"
+	AdminService_SubmitOnChainEvent_FullMethodName        = "/AdminService/SubmitOnChainEvent"
+	AdminService_SubmitUserNameProof_FullMethodName       = "/AdminService/SubmitUserNameProof"
+	AdminService_UploadSnapshot_FullMethodName            = "/AdminService/UploadSnapshot"
+	AdminService_RetryOnchainEvents_FullMethodName        = "/AdminService/RetryOnchainEvents"
+	AdminService_RetryFnameEvents_FullMethodName          = "/AdminService/RetryFnameEvents"
+	AdminService_RunOnchainEventsMigration_FullMethodName = "/AdminService/RunOnchainEventsMigration"
 )
 
 // AdminServiceClient is the client API for AdminService service.
@@ -35,6 +36,7 @@ type AdminServiceClient interface {
 	UploadSnapshot(ctx context.Context, in *UploadSnapshotRequest, opts ...grpc.CallOption) (*Empty, error)
 	RetryOnchainEvents(ctx context.Context, in *RetryOnchainEventsRequest, opts ...grpc.CallOption) (*Empty, error)
 	RetryFnameEvents(ctx context.Context, in *RetryFnameRequest, opts ...grpc.CallOption) (*Empty, error)
+	RunOnchainEventsMigration(ctx context.Context, in *RunOnchainEventsMigrationRequest, opts ...grpc.CallOption) (*Empty, error)
 }
 
 type adminServiceClient struct {
@@ -95,6 +97,16 @@ func (c *adminServiceClient) RetryFnameEvents(ctx context.Context, in *RetryFnam
 	return out, nil
 }
 
+func (c *adminServiceClient) RunOnchainEventsMigration(ctx context.Context, in *RunOnchainEventsMigrationRequest, opts ...grpc.CallOption) (*Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(Empty)
+	err := c.cc.Invoke(ctx, AdminService_RunOnchainEventsMigration_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AdminServiceServer is the server API for AdminService service.
 // All implementations must embed UnimplementedAdminServiceServer
 // for forward compatibility.
@@ -104,6 +116,7 @@ type AdminServiceServer interface {
 	UploadSnapshot(context.Context, *UploadSnapshotRequest) (*Empty, error)
 	RetryOnchainEvents(context.Context, *RetryOnchainEventsRequest) (*Empty, error)
 	RetryFnameEvents(context.Context, *RetryFnameRequest) (*Empty, error)
+	RunOnchainEventsMigration(context.Context, *RunOnchainEventsMigrationRequest) (*Empty, error)
 	mustEmbedUnimplementedAdminServiceServer()
 }
 
@@ -128,6 +141,9 @@ func (UnimplementedAdminServiceServer) RetryOnchainEvents(context.Context, *Retr
 }
 func (UnimplementedAdminServiceServer) RetryFnameEvents(context.Context, *RetryFnameRequest) (*Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RetryFnameEvents not implemented")
+}
+func (UnimplementedAdminServiceServer) RunOnchainEventsMigration(context.Context, *RunOnchainEventsMigrationRequest) (*Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RunOnchainEventsMigration not implemented")
 }
 func (UnimplementedAdminServiceServer) mustEmbedUnimplementedAdminServiceServer() {}
 func (UnimplementedAdminServiceServer) testEmbeddedByValue()                      {}
@@ -240,6 +256,24 @@ func _AdminService_RetryFnameEvents_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AdminService_RunOnchainEventsMigration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RunOnchainEventsMigrationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AdminServiceServer).RunOnchainEventsMigration(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AdminService_RunOnchainEventsMigration_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AdminServiceServer).RunOnchainEventsMigration(ctx, req.(*RunOnchainEventsMigrationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AdminService_ServiceDesc is the grpc.ServiceDesc for AdminService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -266,6 +300,10 @@ var AdminService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RetryFnameEvents",
 			Handler:    _AdminService_RetryFnameEvents_Handler,
+		},
+		{
+			MethodName: "RunOnchainEventsMigration",
+			Handler:    _AdminService_RunOnchainEventsMigration_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
