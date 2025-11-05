@@ -1,4 +1,6 @@
 syntax = "proto3";
+package farcaster;
+
 
 message DbTrieNode {
   bytes key = 1;

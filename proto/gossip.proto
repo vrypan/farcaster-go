@@ -1,6 +1,8 @@
 syntax = "proto3";
+package farcaster;
 
-import "message.proto";
+
+import "snapmsg_fc.proto";
 import "blocks.proto";
 import "request_response.proto";
 

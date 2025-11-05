@@ -1,4 +1,6 @@
 syntax = "proto3";
+package farcaster;
+
 
 enum UserNameType {
   USERNAME_TYPE_NONE = 0;

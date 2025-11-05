@@ -1,6 +1,8 @@
 syntax = "proto3";
+package farcaster;
 
-import "message.proto";
+
+import "snapmsg_fc.proto";
 import "blocks.proto";
 import "hub_event.proto";
 import "username_proof.proto";
@@ -74,6 +76,7 @@ service HubService {
   rpc GetAllVerificationMessagesByFid(FidTimestampRequest) returns (MessagesResponse);
   rpc GetAllUserDataMessagesByFid(FidTimestampRequest) returns (MessagesResponse);
   rpc GetAllLinkMessagesByFid(FidTimestampRequest) returns (MessagesResponse);
+  rpc GetAllLendStorageMessagesByFid(FidTimestampRequest) returns (MessagesResponse);
 
   rpc GetTrieMetadataByPrefix(TrieNodeMetadataRequest) returns (TrieNodeMetadataResponse);
 };
