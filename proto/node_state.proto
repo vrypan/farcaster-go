@@ -1,6 +1,4 @@
 syntax = "proto3";
-package farcaster;
-
 
 message OnChainEventState {
   uint64 last_l2_block = 3;

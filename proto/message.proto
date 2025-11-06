@@ -1,6 +1,4 @@
 syntax = "proto3";
-package farcaster;
-
 
 import "username_proof.proto";
 

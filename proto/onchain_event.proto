@@ -1,6 +1,4 @@
 syntax = "proto3";
-package farcaster;
-
 
 enum OnChainEventType {
   EVENT_TYPE_NONE = 0;

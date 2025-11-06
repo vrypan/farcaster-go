@@ -1,8 +1,6 @@
 syntax = "proto3";
-package farcaster;
 
-
-import "snapmsg_fc.proto";
+import "message.proto";
 import "onchain_event.proto";
 import "blocks.proto";
 

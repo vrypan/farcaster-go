@@ -19,8 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ReplicationService_GetShardSnapshotMetadata_FullMethodName = "/farcaster.ReplicationService/GetShardSnapshotMetadata"
-	ReplicationService_GetShardTransactions_FullMethodName     = "/farcaster.ReplicationService/GetShardTransactions"
+	ReplicationService_GetShardSnapshotMetadata_FullMethodName = "/ReplicationService/GetShardSnapshotMetadata"
+	ReplicationService_GetShardTransactions_FullMethodName     = "/ReplicationService/GetShardTransactions"
 )
 
 // ReplicationServiceClient is the client API for ReplicationService service.
@@ -142,7 +142,7 @@ func _ReplicationService_GetShardTransactions_Handler(srv interface{}, ctx conte
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ReplicationService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "farcaster.ReplicationService",
+	ServiceName: "ReplicationService",
 	HandlerType: (*ReplicationServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

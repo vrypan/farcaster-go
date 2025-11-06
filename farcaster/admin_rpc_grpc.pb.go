@@ -19,12 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	AdminService_SubmitOnChainEvent_FullMethodName        = "/farcaster.AdminService/SubmitOnChainEvent"
-	AdminService_SubmitUserNameProof_FullMethodName       = "/farcaster.AdminService/SubmitUserNameProof"
-	AdminService_UploadSnapshot_FullMethodName            = "/farcaster.AdminService/UploadSnapshot"
-	AdminService_RetryOnchainEvents_FullMethodName        = "/farcaster.AdminService/RetryOnchainEvents"
-	AdminService_RetryFnameEvents_FullMethodName          = "/farcaster.AdminService/RetryFnameEvents"
-	AdminService_RunOnchainEventsMigration_FullMethodName = "/farcaster.AdminService/RunOnchainEventsMigration"
+	AdminService_SubmitOnChainEvent_FullMethodName        = "/AdminService/SubmitOnChainEvent"
+	AdminService_SubmitUserNameProof_FullMethodName       = "/AdminService/SubmitUserNameProof"
+	AdminService_UploadSnapshot_FullMethodName            = "/AdminService/UploadSnapshot"
+	AdminService_RetryOnchainEvents_FullMethodName        = "/AdminService/RetryOnchainEvents"
+	AdminService_RetryFnameEvents_FullMethodName          = "/AdminService/RetryFnameEvents"
+	AdminService_RunOnchainEventsMigration_FullMethodName = "/AdminService/RunOnchainEventsMigration"
 )
 
 // AdminServiceClient is the client API for AdminService service.
@@ -278,7 +278,7 @@ func _AdminService_RunOnchainEventsMigration_Handler(srv interface{}, ctx contex
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var AdminService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "farcaster.AdminService",
+	ServiceName: "AdminService",
 	HandlerType: (*AdminServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
